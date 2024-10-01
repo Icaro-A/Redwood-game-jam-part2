@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://b4a5pu45g647u"]
+
+[sub_resource type="Curve" id="Curve_gou0c"]
+_data = [Vector2(0, 0.472527), 0.0, 0.0, 0, 0, Vector2(0.210145, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_638r7"]
+curve = SubResource("Curve_gou0c")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_j0j7p"]
+angle_min = 1.07288e-05
+angle_max = 360.0
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_max = 5.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = 40.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.0
+scale_curve = SubResource("CurveTexture_638r7")
+color = Color(1, 0.411025, 0.20723, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4rofn"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_efkaa"]
+material = SubResource("StandardMaterial3D_4rofn")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_y8h85"]
+
+[node name="FireProjectile3D" type="Node3D"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+linear_velocity = Vector3(20, 0, 0)
+
+[node name="FireProjectile" type="GPUParticles3D" parent="RigidBody3D"]
+amount = 200
+lifetime = 0.5
+randomness = 1.0
+draw_order = 3
+process_material = SubResource("ParticleProcessMaterial_j0j7p")
+draw_pass_1 = SubResource("QuadMesh_efkaa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_y8h85")
